@@ -16,9 +16,8 @@ public class NumberTransformer {
 		this.rules = Arrays.asList(
 				new DivisibleByRule(3, "FOO"),
 				new DivisibleByRule(5, "BAR"),
-				new DivisibleByRule(7, "QUIX"),
-				new ContainsDigitRule('3', "FOO"),
 				new ContainsDigitRule('5', "BAR"),
+				new ContainsDigitRule('3', "FOO"),
 				new ContainsDigitRule('7', "QUIX"));
 	}
 
