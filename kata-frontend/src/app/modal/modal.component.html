@@ -1,0 +1,29 @@
+<div class="modal fade" #numberModal id="numberModal" tabindex="-1" aria-labelledby="numberModalLabel"
+    aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="numberModalLabel">Number Input Form</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close" (click)="onClose()"></button>
+            </div>
+            <div class="modal-body">
+                <form [formGroup]="numberForm" (submit)="onSubmit()">
+                    <div class="mb-3">
+                        <label for="number" class="form-label">Enter a number</label>
+                        <input type="number" id="number" class="form-control" formControlName="number">
+                        <div *ngIf="numberControl.invalid && (numberControl.dirty || numberControl.touched)"
+                            class="text-danger">
+                            <div *ngIf="numberControl.errors?.['required']">Number is required.</div>
+                            <div *ngIf="numberControl.errors?.['min']">Number must be at least 1.</div>
+                            <div *ngIf="numberControl.errors?.['max']">Number cannot be more than 100.</div>
+                        </div>
+                    </div>
+                    <button type="submit" class="btn btn-primary" [disabled]="numberForm.invalid">Submit</button>
+                </form>
+            </div>
+            <div *ngIf="result$ | async as result" class="container d-flex justify-content-center align-items-center">
+                <h4> Le résultat est : {{result}} </h4>
+            </div>
+        </div>
+    </div>
+</div>
