@@ -23,17 +23,24 @@ public class NumberTransformer {
 
 	public String transform(int number) {
 		StringBuilder result = new StringBuilder();
-		//règles de divisibilité
-		for (ITransformationRule rule : rules) {
-			if (rule instanceof DivisibleByRule && rule.isApplicable(number)) {
-				result.append(rule.apply());
-			}
-		}
-		for (ITransformationRule rule : rules) {
-			//règles contient
-			if (rule instanceof ContainsDigitRule && rule.isApplicable(number)) {
-				result.append(rule.apply());
-			}
+		if (number > 0 && number <= 100) {
+			int[] intArray = String.valueOf(number).chars().map(Character::getNumericValue).toArray();
+
+			this.rules.stream().filter(val -> val instanceof DivisibleByRule).forEach(rule -> {
+				//règles de divisibilité
+				if (rule.isApplicable(number)) {
+					result.append(rule.apply());
+				}
+			});
+
+			Arrays.stream(intArray).forEach(value -> {
+				this.rules.stream().filter(val -> val instanceof ContainsDigitRule).forEach(rule -> {
+					//règles contient
+					if (rule.isApplicable(value)) {
+						result.append(rule.apply());
+					}
+				});
+			});
 		}
 		// Si aucune règle
 		return result.length() > 0 ? result.toString() : String.valueOf(number);
