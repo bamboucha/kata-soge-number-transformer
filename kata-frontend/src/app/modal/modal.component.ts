@@ -18,7 +18,7 @@ export class ModalComponent implements OnInit, AfterViewInit {
   constructor(private fb: FormBuilder,
     private apiClient: ApiWebserviceService) {
     this.numberForm = this.fb.group({
-      number: ['', [Validators.required, Validators.min(1), Validators.max(100)]]
+      number: ['', [Validators.required, Validators.min(0), Validators.max(100)]]
     });
   }
 

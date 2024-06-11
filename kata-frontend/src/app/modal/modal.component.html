@@ -14,7 +14,7 @@
                         <div *ngIf="numberControl.invalid && (numberControl.dirty || numberControl.touched)"
                             class="text-danger">
                             <div *ngIf="numberControl.errors?.['required']">Nombre requis</div>
-                            <div *ngIf="numberControl.errors?.['min']">Nombre minimum est 1.</div>
+                            <div *ngIf="numberControl.errors?.['min']">Nombre minimum est 0.</div>
                             <div *ngIf="numberControl.errors?.['max']">Nombre maximum est 100.</div>
                         </div>
                     </div>
