@@ -1,5 +1,7 @@
 package com.evaluation.service.rule;
 
+import java.util.Arrays;
+
 import com.evaluation.service.ITransformationRule;
 
 public class ContainsDigitRule implements ITransformationRule {
@@ -12,14 +14,21 @@ public class ContainsDigitRule implements ITransformationRule {
 		this.result = result;
 	}
 
-	@Override
 	public boolean isApplicable(int number) {
 		return String.valueOf(number).indexOf(digit) != -1;
 	}
 
 	@Override
-	public String apply() {
-		return result;
+	public String apply(int number) {
+		StringBuilder val = new StringBuilder();
+		int[] intArray = String.valueOf(number).chars().map(Character::getNumericValue).toArray();
+		
+		Arrays.stream(intArray).forEach(value -> {
+			if (isApplicable(value)) {
+				val.append(result);
+			}
+		});
+		return val.toString();
 	}
 
 }

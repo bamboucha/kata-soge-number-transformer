@@ -12,7 +12,7 @@ import com.evaluation.service.rule.DivisibleByRule;
 public class NumberTransformer {
 	private final List<ITransformationRule> rules;
 
-	public NumberTransformer(List<ITransformationRule> rules) {
+	public NumberTransformer(final List<ITransformationRule> rules) {
 		this.rules = Arrays.asList(
 				new DivisibleByRule(3, "FOO"),
 				new DivisibleByRule(5, "BAR"),
@@ -24,22 +24,8 @@ public class NumberTransformer {
 	public String transform(int number) {
 		StringBuilder result = new StringBuilder();
 		if (number > 0 && number <= 100) {
-			int[] intArray = String.valueOf(number).chars().map(Character::getNumericValue).toArray();
-
-			this.rules.stream().filter(val -> val instanceof DivisibleByRule).forEach(rule -> {
-				//règles de divisibilité
-				if (rule.isApplicable(number)) {
-					result.append(rule.apply());
-				}
-			});
-
-			Arrays.stream(intArray).forEach(value -> {
-				this.rules.stream().filter(val -> val instanceof ContainsDigitRule).forEach(rule -> {
-					//règles contient
-					if (rule.isApplicable(value)) {
-						result.append(rule.apply());
-					}
-				});
+			this.rules.stream().forEach(rule -> {
+					result.append(rule.apply(number));
 			});
 		}
 		// Si aucune règle
